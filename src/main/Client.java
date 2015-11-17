@@ -25,11 +25,16 @@ public class Client implements Runnable {
 			final Scanner scanner = new Scanner(socket.getInputStream());
 			
 			while(scanner.hasNextLine())
-				out.println(cmd.checkCommand(cmd.parseCommand(scanner.nextLine()), Server));				
+				out.println(cmd.execute(cmd.parse(scanner.nextLine()), Server));				
 			
 			scanner.close();
 			out.close();
+			
 		} catch(IOException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
 			e.printStackTrace();
 		} finally {
 			Server.onClientStopped(this);
