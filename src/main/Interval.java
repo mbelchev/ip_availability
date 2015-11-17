@@ -6,20 +6,23 @@ import java.util.Date;
 public class Interval {
 	
 	private Date from, to;
+	private static final String FORMAT = "yyyy-­MM-dd'T'HH'_'mm'_'ss.SSSZ";
 	
 	public Interval(Date receivedDate) {
 		this.from = receivedDate;
 	}
 	
 	public String from() {
-		return this.formatDate(from);
+		return new SimpleDateFormat(FORMAT).format(from);
 	}
 	
 	public String to() {
-		return this.formatDate(to);
+		if (this.to != null) return new SimpleDateFormat(FORMAT).format(this.to);
+		else return null;
 	}
-
-	private String formatDate(Date date) {
-		return new SimpleDateFormat("yyyy-­MM-dd'T'HH'_'mm'_'ss.SSSZ").format(date);
+	
+	public void setOut(Date receivedDate) {
+		this.to = receivedDate;
 	}
+	
 }
